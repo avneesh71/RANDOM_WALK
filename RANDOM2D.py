@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import subprocess
 
 # Parameters
 n_steps = 1000     # Number of steps in each random walk
@@ -57,3 +58,9 @@ plt.colorbar(label='Probability')
 
 plt.tight_layout()
 plt.show()
+
+# Save the plot to a file
+plt.savefig('random_walk_plot.png')
+
+# Open the saved image using the default image viewer
+subprocess.run(['xdg-open', 'random_walk_plot.png'])

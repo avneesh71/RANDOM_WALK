@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import subprocess
 
 # Parameters
 n_steps = 1000     # Number of steps in each random walk
@@ -20,7 +21,7 @@ for i in range(n_walks):
 
 # Calculate mean displacement and mean square displacement
 for t in range(n_steps + 1):
-    mean_displacement[t] = np.mean(all_positions[:, t]) 
+    mean_displacement[t] = np.mean(all_positions[:, t])
     mean_square_displacement[t] = np.mean(all_positions[:, t] ** 2)
 
 # Probability distribution of final positions
@@ -51,6 +52,9 @@ plt.xlabel('Final Position')
 plt.ylabel('Probability')
 
 plt.tight_layout()
-plt.show()
 
+# Save the plot to a file
+plt.savefig('random_walk_plot.png')
 
+# Open the saved image using the default image viewer
+subprocess.run(['xdg-open', 'random_walk_plot.png'])
