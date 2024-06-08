@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import subprocess
+#import subprocess
 
 def simulate_random_walk(dim, n_steps, n_walks):
     final_positions = np.zeros((n_walks, dim))
@@ -66,12 +66,13 @@ def main():
 
     final_positions, all_positions, mean_displacement, mean_square_displacement = simulate_random_walk(dim, n_steps, n_walks)
     plot_results(dim, mean_displacement, mean_square_displacement, final_positions, n_walks)
-
+    #comment out this part for python IDLE
+    #start
     # Save the plot to a file
     plt.savefig('random_walk_plot.png')
 
     # Open the saved image using the default image viewer
     subprocess.run(['xdg-open', 'random_walk_plot.png'])
-
+    #end
 if __name__ == "__main__":
     main()
