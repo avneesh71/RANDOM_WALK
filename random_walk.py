@@ -24,91 +24,39 @@ def simulate_random_walk(dim, n_steps, n_walks):
 
 
 def plot_results(dim, mean_displacement, mean_square_displacement, final_positions, n_walks):
-    if dim == 1:
-        # Plot 1D
-        plt.figure(figsize=(18, 6))
-        plt.subplot(1, 3, 1)
-        plt.plot(mean_displacement)
-        plt.title('Mean Displacement vs. Step Number')
-        plt.xlabel('Step Number')
-        plt.ylabel('Mean Displacement')
+    plt.figure(figsize=(18, 6))
 
-        plt.subplot(1, 3, 2)
-        plt.plot(mean_square_displacement)
-        plt.title('Mean Square Displacement vs. Step Number')
-        plt.xlabel('Step Number')
-        plt.ylabel('Mean Square Displacement')
+    for i in range(3):
+        plt.subplot(1, 3, i + 1)
+        if i == 0:
+            plt.plot(mean_displacement)
+            plt.title('Mean Displacement vs. Step Number')
+            plt.ylabel('Mean Displacement')
+        elif i == 1:
+            plt.plot(mean_square_displacement)
+            plt.title('Mean Square Displacement vs. Step Number')
+            plt.ylabel('Mean Square Displacement')
+        else:
+            if dim == 1:
+                plt.hist(final_positions, bins='auto', density=True, rwidth=0.8)
+                plt.title('Probability Distribution of Final Positions')
+                plt.xlabel('Final Position')
+                plt.ylabel('Probability')
+            elif dim == 2:
+                plt.scatter(final_positions[:, 0], final_positions[:, 1], c='blue', alpha=0.1, s=1)
+                plt.title('Probability Distribution of Final Positions')
+                plt.xlabel('Final Position X')
+                plt.ylabel('Final Position Y')
+            elif dim == 3:
+                ax = plt.subplot(1, 3, 3, projection='3d')  # Create a new subplot with 3D projection
+                ax.scatter(final_positions[:, 0], final_positions[:, 1], final_positions[:, 2], c='blue', alpha=0.1, s=1)
+                ax.set_title('Probability Distribution of Final Positions')
+                ax.set_xlabel('Final Position X')
+                ax.set_ylabel('Final Position Y')
+                ax.set_zlabel('Final Position Z')
 
-        plt.subplot(1, 3, 3)
-        plt.hist(final_positions, bins='auto', density=True)
-        plt.title('Probability Distribution of Final Positions')
-        plt.xlabel('Final Position')
-        plt.ylabel('Probability')
-
-        plt.tight_layout()
-    elif dim == 2:
-        # Plot 2D
-        plt.figure(figsize=(18, 6))
-
-        plt.subplot(1, 3, 1)
-        plt.plot(mean_displacement[:, 0], label='X direction')
-        plt.plot(mean_displacement[:, 1], label='Y direction')
-        plt.title('Mean Displacement vs. Step Number')
-        plt.xlabel('Step Number')
-        plt.ylabel('Mean Displacement')
-        plt.legend()
-
-        plt.subplot(1, 3, 2)
-        plt.plot(mean_square_displacement[:, 0], label='X direction')
-        plt.plot(mean_square_displacement[:, 1], label='Y direction')
-        plt.title('Mean Square Displacement vs. Step Number')
-        plt.xlabel('Step Number')
-        plt.ylabel('Mean Square Displacement')
-        plt.legend()
-
-        plt.subplot(1, 3, 3)
-        plt.scatter(final_positions[:, 0], final_positions[:, 1], c='blue', alpha=0.1, s=1)
-        plt.title('Probability Distribution of Final Positions')
-        plt.xlabel('Final Position X')
-        plt.ylabel('Final Position Y')
-
-        plt.tight_layout()
-        plt.show()
-
-    elif dim == 3:
-        # Plot Mean Displacement vs. Step Number
-        plt.figure(figsize=(18, 6))
-
-        plt.subplot(1, 3, 1)
-        plt.plot(mean_displacement[:, 0], label='X direction')
-        plt.plot(mean_displacement[:, 1], label='Y direction')
-        plt.plot(mean_displacement[:, 2], label='Z direction')
-        plt.title('Mean Displacement vs. Step Number')
-        plt.xlabel('Step Number')
-        plt.ylabel('Mean Displacement')
-        plt.legend()
-
-        # Plot Mean Square Displacement vs. Step Number
-        plt.subplot(1, 3, 2)
-        plt.plot(mean_square_displacement[:, 0], label='X direction')
-        plt.plot(mean_square_displacement[:, 1], label='Y direction')
-        plt.plot(mean_square_displacement[:, 2], label='Z direction')
-        plt.title('Mean Square Displacement vs. Step Number')
-        plt.xlabel('Step Number')
-        plt.ylabel('Mean Square Displacement')
-        plt.legend()
-
-        # Plot Probability Distribution of Final Positions in 3D
-        plt.subplot(1, 3, 3, projection='3d')
-        ax = plt.gca()
-        scat = ax.scatter(final_positions[:, 0], final_positions[:, 1], final_positions[:, 2], c='blue', alpha=0.1, s=1)
-        ax.set_title('Probability Distribution of Final Positions')
-        ax.set_xlabel('Final Position X')
-        ax.set_ylabel('Final Position Y')
-        ax.set_zlabel('Final Position Z')
-
-        plt.tight_layout()
-        plt.show()
+    plt.tight_layout()
+    plt.show()
 
 def main():
     # Parameters
