@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import subprocess
+#import subprocess
 
 def simulate_random_walk(dim, n_steps, n_walks):
     final_positions = np.zeros((n_walks, dim))
@@ -71,20 +71,28 @@ def main():
 
             final_positions, all_positions, mean_displacement, mean_square_displacement = simulate_random_walk(dim, n_steps, n_walks)
             plot_results(dim, mean_displacement, mean_square_displacement, final_positions, n_walks)
-            #comment out this part for python IDLE
-            #start
+
             # Save the plot to a file
-            plt.savefig('random_walk_plot.png')
+            #plt.savefig('random_walk_plot.png')
 
             # Open the saved image using the default image viewer
-            subprocess.run(['xdg-open', 'random_walk_plot.png'])
-            #end
+            #subprocess.run(['xdg-open', 'random_walk_plot.png'])
+
         except ValueError as ve:
             print("Error:", ve)
         except Exception as e:
             print("An unexpected error occurred:", e)
 
-        repeat = input("Do you want to run the simulation again? (y/n): ")
+        while True:
+            repeat = input("Do you want to run the simulation again? (y/n): ")
+            if repeat.lower() == 'n':
+                print("Bye!!")
+                break
+            elif repeat.lower() == 'y':
+                break
+            else:
+                print("Please enter either 'y' or 'n'.\n")
+
         if repeat.lower() != 'y':
             break
 
